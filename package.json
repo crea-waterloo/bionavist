@@ -1,0 +1,19 @@
+{
+  "name": "CREA-Web-App",
+  "version": "1.0.0",
+  "description": "Interactive visualization for relations extracted by NLP of biological article abstracts found on PubMed.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dstratossong/CREA-Web-App.git"
+  },
+  "author": "",
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/dstratossong/CREA-Web-App/issues"
+  },
+  "homepage": "https://github.com/dstratossong/CREA-Web-App"
+}
