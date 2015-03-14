@@ -119,7 +119,6 @@ var wsserver = nodejswebsocket.createServer(function (connection) {
                     connection.sendText(JSON.stringify(buf));
                 }, function () {
                     done();
-                    connection.close();
                 }));
 
             });
