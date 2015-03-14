@@ -1,3 +1,6 @@
+# do not version track the local config file
+config.sh
+
 data/anatomy.csv
 data/relations.csv
 
