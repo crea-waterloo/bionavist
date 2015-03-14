@@ -17,7 +17,13 @@
   },
   "homepage": "https://github.com/dstratossong/CREA-Web-App",
   "dependencies": {
+    "JSONStream": "^0.10.0",
     "node-simple-router": "^0.9.4-2",
-    "pg": "^4.3.0"
+    "nodejs-websocket": "^1.2.0",
+    "pg": "^4.3.0",
+    "pg-query-stream": "^0.7.0",
+    "through": "^2.3.6",
+    "url": "^0.10.3",
+    "websocket-stream": "^1.4.0"
   }
 }
