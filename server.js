@@ -13,26 +13,9 @@ var http = require('http'),
 // Variables
 var connParam = process.env.PG_CONN,
     httpPort = process.argv[2],
-    router = new Router(),
+    router = new Router({static_route: __dirname + '/static'}),
     filePath = "static/index.html",
     websocketStream;
-
-// Webpage Routes
-router.get('/', function (request, response) {
-    response.writeHead(200, {'Content-Type': 'text/html'});
-
-    var readStream = fs.createReadStream(filePath);
-    readStream.pipe(response);
-});
-
-// Getting Javascript
-// .. kinda painful that I have to route this myself..
-router.get('/scripts/websocket-client.js', function (request, response) {
-    response.writeHead(200, {'Content-Type': 'text/javascript'});
-
-    var readStream = fs.createReadStream('static/scripts/websocket-client.js');
-    readStream.pipe(response);
-})
 
 // router.get('/api/get_all_relations', function (request, response) {
 
