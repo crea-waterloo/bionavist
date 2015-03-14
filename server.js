@@ -1,19 +1,19 @@
 // Libraries
-var http = require('http'),	
-	fs = require('fs'), 
-	JSONStream = require('JSONStream'), 
-	pg = require('pg'), 
-	QueryStream = require('pg-query-stream'), 
-	url = require('url'), 
+var http = require('http'),
+	fs = require('fs'),
+	JSONStream = require('JSONStream'),
+	pg = require('pg'),
+	QueryStream = require('pg-query-stream'),
+	url = require('url'),
 	through = require('through'),
-	Router = require('node-simple-router'), 
+	Router = require('node-simple-router'),
 	websocket = require('websocket-stream'),
 	nodejswebsocket = require('nodejs-websocket');
 
 // Variables
-var connParam = "postgres://creauser:crealogin@localhost/crearesearch", 
-	httpPort = process.argv[2], 
-	router = new Router(), 
+var connParam = process.env.PG_CONN,
+	httpPort = process.argv[2],
+	router = new Router(),
 	filePath = "static/index.html",
 	websocketStream;
 
@@ -82,7 +82,7 @@ server.listen(httpPort);
 // 		}, function () {
 // 			this.queue(null);
 // 		})).pipe(outstream);
-		
+
 // 	});
 // }
 
@@ -121,7 +121,7 @@ var wsserver = nodejswebsocket.createServer(function (connection) {
 					done();
 					connection.close();
 				}));
-				
+
 			});
 		}
 	});
