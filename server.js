@@ -1,60 +1,60 @@
 // Libraries
 var http = require('http'),
-	fs = require('fs'),
-	JSONStream = require('JSONStream'),
-	pg = require('pg'),
-	QueryStream = require('pg-query-stream'),
-	url = require('url'),
-	through = require('through'),
-	Router = require('node-simple-router'),
-	websocket = require('websocket-stream'),
-	nodejswebsocket = require('nodejs-websocket');
+    fs = require('fs'),
+    JSONStream = require('JSONStream'),
+    pg = require('pg'),
+    QueryStream = require('pg-query-stream'),
+    url = require('url'),
+    through = require('through'),
+    Router = require('node-simple-router'),
+    websocket = require('websocket-stream'),
+    nodejswebsocket = require('nodejs-websocket');
 
 // Variables
 var connParam = process.env.PG_CONN,
-	httpPort = process.argv[2],
-	router = new Router(),
-	filePath = "static/index.html",
-	websocketStream;
+    httpPort = process.argv[2],
+    router = new Router(),
+    filePath = "static/index.html",
+    websocketStream;
 
 // Webpage Routes
 router.get('/', function (request, response) {
-	response.writeHead(200, {'Content-Type': 'text/html'});
+    response.writeHead(200, {'Content-Type': 'text/html'});
 
-	var readStream = fs.createReadStream(filePath);
-	readStream.pipe(response);
+    var readStream = fs.createReadStream(filePath);
+    readStream.pipe(response);
 });
 
 // Getting Javascript
 // .. kinda painful that I have to route this myself..
 router.get('/scripts/websocket-client.js', function (request, response) {
-	response.writeHead(200, {'Content-Type': 'text/javascript'});
+    response.writeHead(200, {'Content-Type': 'text/javascript'});
 
-	var readStream = fs.createReadStream('static/scripts/websocket-client.js');
-	readStream.pipe(response);
+    var readStream = fs.createReadStream('static/scripts/websocket-client.js');
+    readStream.pipe(response);
 })
 
 // router.get('/api/get_all_relations', function (request, response) {
 
-// 	// Parsing URL
-// 	var parsedRequest = url.parse(request.url, true),
-// 		keyword = parsedRequest.query.keyword,
-// 		databaseQuery,
-// 		databaseQueryArray;
+//     // Parsing URL
+//     var parsedRequest = url.parse(request.url, true),
+//         keyword = parsedRequest.query.keyword,
+//         databaseQuery,
+//         databaseQueryArray;
 
-// 	// Building Query
-// 	if (keyword == null) {
-// 		databaseQuery = "SELECT * FROM filtered_relations";
-// 		databaseQueryArray = [];
-// 	} else {
-// 		databaseQuery = "SELECT * FROM filtered_relations";
-// 		databaseQueryArray = [];
-// 		// Currently the keyword is only an integer.. This isn't gonna work :(
-// 		// databaseQuery = "SELECT * FROM filtered_relations WHERE keyword='$1'::VARCHAR";
-// 		// databaseQueryArray = [keyword];
-// 	}
+//     // Building Query
+//     if (keyword == null) {
+//         databaseQuery = "SELECT * FROM filtered_relations";
+//         databaseQueryArray = [];
+//     } else {
+//         databaseQuery = "SELECT * FROM filtered_relations";
+//         databaseQueryArray = [];
+//         // Currently the keyword is only an integer.. This isn't gonna work :(
+//         // databaseQuery = "SELECT * FROM filtered_relations WHERE keyword='$1'::VARCHAR";
+//         // databaseQueryArray = [keyword];
+//     }
 
-// 	// fetchFromPostgres(databaseQuery, databaseQueryArray, ...);
+//     // fetchFromPostgres(databaseQuery, databaseQueryArray, ...);
 
 // });
 
@@ -64,26 +64,26 @@ server.listen(httpPort);
 
 
 // function fetchFromPostgres(outstream) {
-// 	var databaseQuery = "SELECT * FROM filtered_relations";
-// 	var databaseQueryArray = [];
+//     var databaseQuery = "SELECT * FROM filtered_relations";
+//     var databaseQueryArray = [];
 
-// 	pg.connect(connParam, function (err, client, done) {
+//     pg.connect(connParam, function (err, client, done) {
 
-// 		if (err) {
-// 			return console.error('error fetching client from pool', err);
-// 		}
+//         if (err) {
+//             return console.error('error fetching client from pool', err);
+//         }
 
-// 		var query = new QueryStream(databaseQuery, databaseQueryArray);
-// 		var stream = client.query(query);
-// 		stream.on('end', done);
-// 		stream.pipe(through(function (buf) {
-// 			// console.log(JSON.stringify(buf));
-// 			this.queue(JSON.stringify(buf));
-// 		}, function () {
-// 			this.queue(null);
-// 		})).pipe(outstream);
+//         var query = new QueryStream(databaseQuery, databaseQueryArray);
+//         var stream = client.query(query);
+//         stream.on('end', done);
+//         stream.pipe(through(function (buf) {
+//             // console.log(JSON.stringify(buf));
+//             this.queue(JSON.stringify(buf));
+//         }, function () {
+//             this.queue(null);
+//         })).pipe(outstream);
 
-// 	});
+//     });
 // }
 
 // fetchFromPostgres(process.stdout);
@@ -95,35 +95,35 @@ server.listen(httpPort);
 // someOtherServer.listen(8081);
 
 var wsserver = nodejswebsocket.createServer(function (connection) {
-	connection.on("text", function (str) {
-		if (str === "fetch") {
+    connection.on("text", function (str) {
+        if (str === "fetch") {
 
-			var databaseQuery = "SELECT * FROM filtered_relations";
-			var databaseQueryArray = [];
+            var databaseQuery = "SELECT * FROM filtered_relations";
+            var databaseQueryArray = [];
 
-			pg.connect(connParam, function (err, client, done) {
-				if (err) throw err;
-				var query = new QueryStream(databaseQuery, databaseQueryArray);
-				var stream = client.query(query);
+            pg.connect(connParam, function (err, client, done) {
+                if (err) throw err;
+                var query = new QueryStream(databaseQuery, databaseQueryArray);
+                var stream = client.query(query);
 
-				// stream.on("readable", function () {
-				// 	var buf = stream.read();
-				// 	console.log(JSON.stringify(buf));
-				// 	connection.sendText(JSON.stringify(buf));
-				// });
-				// stream.on("end", done);
+                // stream.on("readable", function () {
+                //     var buf = stream.read();
+                //     console.log(JSON.stringify(buf));
+                //     connection.sendText(JSON.stringify(buf));
+                // });
+                // stream.on("end", done);
 
 
-				stream.pipe(through(function (buf) {
-					console.log(JSON.stringify(buf));
-					connection.sendText(JSON.stringify(buf));
-				}, function () {
-					done();
-					connection.close();
-				}));
+                stream.pipe(through(function (buf) {
+                    console.log(JSON.stringify(buf));
+                    connection.sendText(JSON.stringify(buf));
+                }, function () {
+                    done();
+                    connection.close();
+                }));
 
-			});
-		}
-	});
+            });
+        }
+    });
 });
 wsserver.listen(8081);
