@@ -42,6 +42,8 @@ window.addEventListener('load', function() {
         settings: {
         }
     });
+
+    fetchRelations();
 });
 
 function fetchRelations() {
@@ -53,6 +55,8 @@ function getRandomInt(min, max) {
 }
 
 function handleOnMessage(relation) {
+
+    if (nodes.length > 50) return;
     var subjectNode = _.find(nodes, function(node) {
         return node.name === relation.subject;
     });
