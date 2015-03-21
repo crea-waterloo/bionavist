@@ -1,3 +1,7 @@
 .top-element {
     margin-top: 60px;
 }
+
+#home-accordion p {
+    color: white;
+}
