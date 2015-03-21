@@ -63,14 +63,42 @@ window.addEventListener('load', function() {
         }
     });
 
+    // s.graph.addNode({
+    //     id: 'newnode1',
+    //     label: 'newnode1',
+    //     x: 1,
+    //     y: 1,
+    //     size: 1
+    // }).addNode({
+    //     id: 'newnode2',
+    //     label: 'newnode2',
+    //     x: 500,
+    //     y: 500,
+    //     size: 1
+    // }).addEdge({
+    //     id: 'newedge1',
+    //     source: 'newnode1',
+    //     target: 'newnode2',
+    //     label: 'newedge1',
+    //     hover_color: '#333333',
+    //     size: 13
+    //     // type: 't'
+    // });
+
+    s.refresh();
+
+    s.bind('overEdge outEdge clickEdge doubleClickEdge rightClickEdge', function(e) {
+        console.log(e.type, e.data.edge, e.data.captor);
+    });
+
     s.bind('clickNode', function(e) {
         handleClickNode(e.data.node);
     });
 
-    s.bind('overEdge outEdge clickEdge', function(e) {
-        console.log('event', e);
-        handleClickEdge(e.data.edge);
-    });
+    // s.bind('overEdge outEdge clickEdge', function(e) {
+    //     console.log('event', e);
+    //     handleClickEdge(e.data.edge);
+    // });
 
     s.bind('clickStage', function(e) {
         handleClickStage();
