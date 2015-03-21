@@ -92,7 +92,6 @@ function getRandomInt(min, max) {
 }
 
 function handleOnMessage(relation) {
-
     if (nodes.length > 75) return;
     var subjectNode = _.find(nodes, function(node) {
         return node.name === relation.subject;
@@ -210,6 +209,19 @@ function handleClickNode(node) {
             }]
         });
     }
+
+/*    _.each(_.keys(groupedEdges), function(key, index) {
+        // count number of nodes which has an outgoing edge of this key
+
+        var row = '<tr>';
+        row += '<td>' + (index+1) + '</td>';
+        row += '<td>' + key + '</td>';
+        row += '</tr>'
+
+        $('#subject-verb-actions-table').append(row);
+    });*/
+
+    // $('#subject-verb-actions').show();
 }
 
 function handleClickEdge(edge) {
