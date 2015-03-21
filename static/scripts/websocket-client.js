@@ -1,5 +1,5 @@
 var connection;
-function websocketClient() {
+function websocketClient(scope) {
     connection = new WebSocket("ws://"+window.location.hostname+":8081");
     connection.binaryType = "blob";
     connection.onopen = function () {
@@ -21,12 +21,14 @@ function websocketClient() {
         //     reader.readAsText(event.data);
         // }
         console.log(event.data);
-        var div = document.createElement("div");
-        div.textContent = event.data;
-        document.body.appendChild(div);
+        // var div = document.createElement("div");
+        // div.textContent = event.data;
+        // document.body.appendChild(div);
+        scope.relationsJson = "LOL";
+        scope.apply();
     };
 }
 
-window.addEventListener("beforeunload", function(event) {
-    connection.close();
-});
+// window.addEventListener("beforeunload", function(event) {
+//     connection.close();
+// });
