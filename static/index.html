@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="crea-relation-viewer">
+<html lang="en">
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.4.0/lodash.js"></script>
     <script src="libs/sigma-js/sigma.min.js"></script>
     <script src="libs/sigma-js/plugins/sigma.parsers.json.js"></script>
@@ -23,37 +22,16 @@
     </style>
 </head>
 <body>
-    <div class="container" ng-controller="GraphController">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h1>CREA Relation Viewer</h1>
-                <input class="btn btn-primary" type="button" value="Fetch" ng-click="fetchRelations()">
+                <input class="btn btn-primary" type="button" value="Fetch" onclick="fetchRelations()">
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div id="graph-container"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div id="" class="well">
-                    {{ nodes }}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div id="" class="well">
-                    {{ edges }}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div id="json-viewer" class="well">
-                    {{ relationsJson }}
-                </div>
             </div>
         </div>
     </div>
