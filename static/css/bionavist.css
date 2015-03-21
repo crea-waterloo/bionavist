@@ -8,4 +8,10 @@
 
 #right-side-bar {
     background: #e5e5e5;
+    word-wrap: break-word;
+}
+
+#dp-name {
+    text-transform: uppercase;
+    display: none;
 }

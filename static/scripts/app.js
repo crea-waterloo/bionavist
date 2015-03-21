@@ -43,6 +43,10 @@ window.addEventListener('load', function() {
         }
     });
 
+    s.bind('clickNode', function(e) {
+        handleClickNode(e.data.node);
+    });
+
     fetchRelations();
 });
 
@@ -110,6 +114,10 @@ function handleOnMessage(relation) {
     edge.addLink(relation.link);
 
     s.refresh();
+}
+
+function handleClickNode(node) {
+    $('#dp-name').text(node.label).show();
 }
 
 function applyLayout() {
