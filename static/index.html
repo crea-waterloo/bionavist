@@ -1,16 +1,169 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="crea-relation-viewer">
+<html lang="en">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.4.0/lodash.js"></script>
-    <script src="scripts/app.js"></script>
+    <script src="libs/sigma-js/sigma.min.js"></script>
+    <script src="libs/sigma-js/plugins/sigma.layout.forceAtlas2.min.js"></script>
+    <!--<script src="libs/sigma-js/plugins/sigma.renderers.edgeLabels.min.js"></script>-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="libs/bootstrap-slide-panel-top/css/app-front.min.css">
+    <link rel="stylesheet" href="css/bionavist.css">
+    <script src="libs/bootstrap-slide-panel-top/respond.js"></script>
+    <script src="libs/bootstrap-slide-panel-top/main.js"></script>
+    <script src="libs/highcharts/highcharts.js"></script>
     <script src="scripts/websocket-client.js"></script>
-    <title>CREA Relation Viewer</title>
+    <script src="scripts/app.js"></script>
+    <title>Bionavist</title>
+
+    <style type="text/css">
+      #graph-container {
+        height: 600px;
+        margin: auto;
+      }
+    </style>
 </head>
 <body>
-    <h1>CREA Relation Viewer</h1>
-    <form id="form">
-	Keyword: <input size="50" id="keyword"> <input type="submit" value="Submit">
-	</form>
+    <header>
+        <div class="panel-group" id="home-accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <button type="button" class="close"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
+                    <div class="panel-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 class="title text-center">Bionavist</h4>
+                                </div>
+                                <div class="col-sm-12">
+                                    <p>Visualize complex relationships between biological substances, cells, systems, 
+                                    and/or processes of the human body.</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="well well-sm" id="substance-category">
+                                        <h4>Substance</h4>
+                                        <div class="row">
+                                            <div class="col-sm-4" id="protein-keywords">
+                                                <h6>Proteins</h6>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> Actin
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <h6>Hormones</h6>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <h7>Amine</h7>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox"> Insulin
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <h7>Peptide</h7>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox"> Progesterone
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <h6>Neurotransmitters</h6>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> Dopamine
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.col-sm-4 -->
+                                <div class="col-sm-4">
+                                    <div class="well well-sm">
+                                        <h4>Structure</h4>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <h6>Biological Systems</h6>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> immune system
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <h6>Tissues/Organ</h6>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> amygdala
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <h6>Cells</h6>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> lymphocyte
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.col-sm-4 -->
+                                <div class="col-sm-4">
+                                    <div class="well well-sm">
+                                        <h4>Process</h4>
+                                    </div>
+                                </div>
+                                <!-- /.col-sm-4 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title text-center">
+                        <a data-toggle="collapse" data-parent="#home-accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            <span>Bionavist</span>
+                        </a>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid top-element">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input class="btn btn-primary" type="button" value="Apply Layout" onclick="applyLayout()">
+                        <input class="btn btn-primary" type="button" value="Stop Layout" onclick="stopLayout()">
+                    </div>
+
+                    <div class="col-md-12">
+                        <div id="graph-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2" id="right-side-bar">
+                <h3>Description Panel</h3>
+                <h4 id="dp-name">Biological Substance Name</h4>
+                <p id="dp-description">Click on a node or edge to see its description.</p>
+                <div id="subject-verb-histogram"></div>
+                <h5></h5>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

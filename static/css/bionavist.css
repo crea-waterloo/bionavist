@@ -1,0 +1,23 @@
+.top-element {
+    margin-top: 60px;
+}
+
+#home-accordion p {
+    color: white;
+}
+
+#right-side-bar {
+    background: #e5e5e5;
+    word-wrap: break-word;
+}
+
+#dp-name {
+    text-transform: uppercase;
+    display: none;
+}
+
+#subject-verb-histogram {
+    min-width: 200px;
+    max-width: 800px;
+    height: 200px;
+}
