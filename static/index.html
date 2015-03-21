@@ -4,7 +4,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.4.0/lodash.js"></script>
     <script src="libs/sigma-js/sigma.min.js"></script>
-    <script src="libs/sigma-js/plugins/sigma.parsers.json.js"></script>
+    <script src="libs/sigma-js/plugins/sigma.layout.forceAtlas2.min.js"></script>
+    <!--<script src="libs/sigma-js/plugins/sigma.renderers.edgeLabels.min.js"></script>-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -16,7 +17,7 @@
 
     <style type="text/css">
       #graph-container {
-        height: 400px;
+        height: 600px;
         margin: auto;
       }
     </style>
@@ -27,6 +28,8 @@
             <div class="col-md-12">
                 <h1>CREA Relation Viewer</h1>
                 <input class="btn btn-primary" type="button" value="Fetch" onclick="fetchRelations()">
+                <input class="btn btn-primary" type="button" value="Apply Layout" onclick="applyLayout()">
+                <input class="btn btn-primary" type="button" value="Stop Layout" onclick="stopLayout()">
             </div>
         </div>
         <div class="row">

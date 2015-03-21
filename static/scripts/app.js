@@ -1,3 +1,7 @@
+var s;
+var CANVAS_WIDTH = 900;
+var CANVAS_HEIGHT = 600;
+
 var Node = function(id, name) {
     this.id = id;
     this.name = name;
@@ -23,14 +27,20 @@ _.extend(Edge.prototype, {
 
 var nodes = [];
 var edges = [];
-var s;
-var CANVAS_WIDTH = 900;
-var CANVAS_HEIGHT = 600;
+var g = {
+    nodes: [],
+    edges: []
+};
 
 window.addEventListener('load', function() {
-    s = new sigma('graph-container');
-    s.settings({
-        defaultEdgeColor: '#ec5148'
+    s = new sigma({
+        graph: g,
+        renderer: {
+            container: document.getElementById('graph-container'),
+            type: 'canvas'
+        },
+        settings: {
+        }
     });
 });
 
@@ -87,11 +97,26 @@ function handleOnMessage(relation) {
         s.graph.addEdge({
           id: edge.id.toString(),
           source: edge.source.toString(),
-          target: edge.target.toString()
+          target: edge.target.toString(),
+          label: edge.name,
+          type: "arrow"
         });
     }
 
     edge.addLink(relation.link);
 
     s.refresh();
+}
+
+function applyLayout() {
+    s.startForceAtlas2({
+        linLogMode: false,
+        edgeWeightInfluence: 0.2,
+        scalingRatio: 100,
+        iterationsPerRender: 10000
+    });
+}
+
+function stopLayout() {
+    s.stopForceAtlas2();
 }
