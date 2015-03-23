@@ -127,10 +127,10 @@ while (csv_line = csv_file.gets)
     if (matched_noun and matched_verb)
         if object_matched
             # puts "<p>MATCH: <b>#{object}</b> #{predicate} #{subject} <a href='http://www.ncbi.nlm.nih.gov/pubmed/#{article_id.delete("\"")}'>link</a></p>"
-            puts "#{object.delete("\"")};#{predicate.delete("\"")};#{subject.delete("\"")};0;#{article_id.delete("\"")}"
+            puts "#{object.delete("\"")};#{predicate.delete("\"")};#{subject.delete("\"")};0;#{article_id.delete("\"")}\n"
         elsif subject_matched
             # puts "<p>MATCH: #{object} #{predicate} <b>#{subject}</b> <a href='http://www.ncbi.nlm.nih.gov/pubmed/#{article_id.delete("\"")}'>link</a></p>"
-            puts "#{object.delete("\"")};#{predicate.delete("\"")};#{subject.delete("\"")};2;#{article_id.delete("\"")}"
+            puts "#{object.delete("\"")};#{predicate.delete("\"")};#{subject.delete("\"")};2;#{article_id.delete("\"")}\n"
         end
         # puts csv_line
     else
