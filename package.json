@@ -25,5 +25,8 @@
     "through": "^2.3.6",
     "url": "^0.10.3",
     "websocket-stream": "^1.4.0"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
