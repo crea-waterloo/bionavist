@@ -98,7 +98,7 @@ var wsserver = nodejswebsocket.createServer(function (connection) {
 
 
                 stream.pipe(through(function (buf) {
-                    console.log(JSON.stringify(buf));
+                    //console.log(JSON.stringify(buf));
                     connection.sendText(JSON.stringify(buf));
                 }, function () {
                     done();
