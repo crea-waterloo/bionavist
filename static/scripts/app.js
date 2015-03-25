@@ -120,7 +120,6 @@ function getRandomInt(min, max) {
 }
 
 function handleOnMessage(relation) {
-
     if (nodes.length > 75) return;
     var subjectNode = _.find(nodes, function(node) {
         return node.name === relation.subject;
@@ -175,69 +174,6 @@ function handleOnMessage(relation) {
     edge.addLink(relation.link);
 
     s.refresh();
-}
-
-function handleClickNode(node) {
-    $('#dp-name').text(node.label).show();
-    $('#dp-description').text('A description of ' + node.label + '.').show();
-
-    // find edges whose subject is this node
-    var outwardEdges = _.filter(edges, function(edge) {
-        return edge.source.toString() === node.id;
-    });
-
-    var groupedEdges = _.groupBy(outwardEdges, function(edge) {
-        return edge.name;
-    });
-
-    console.log('edges', outwardEdges);
-    console.log('groupedEdges', groupedEdges);
-
-    if (_.keys(groupedEdges).length > 0) {
-        $('#subject-verb-histogram').highcharts({
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'Verb Frequency'
-            },
-            xAxis: {
-                categories: _.keys(groupedEdges),
-                title: {
-                    text: null
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Frequency',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Frequency',
-                data: _.map(groupedEdges, function(group) {
-                    return group.length;
-                })
-            }]
-        });
-    }
 }
 
 function handleClickEdge(edge) {
