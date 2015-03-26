@@ -4,15 +4,25 @@ var CANVAS_HEIGHT = 600;
 
 var filterKeywords = {
     substance: {
-        proteins: [],
+        proteins: ['actin', 'myosin', 'myoglobin', 'hemoglobin', 'melanopsin'],
         hormones: {
-            amine: [],
-            peptide: []
+            amine: ['insulin', 'oxytocin', 'cortisol'],
+            peptide: ['progesterone', 'estrogen', 'testosterone']
         },
-        neurotransmitters: []
+        neurotransmitters: ['dopamine', 'serotonin']
     },
-    structure: {},
-    process: {},
+    structure: {
+        'Biological Systems': ['immune system', 'limbic system'],
+        'Tissues/Organs': ['amygdala', 'hypothalamus'],
+        'Cells': ['lymphocyte', 'native T cell']
+    },
+    process: {
+        'Bio-Phenomena': ['apoptosis', 'glycolysis'],
+        'Physiological': ['digestion', 'metabolism'],
+        'Cognitive': ['memory', 'attention', 'arousal', 'intelligence'],
+        'Disease': ['cancer', 'diabetes', 'Parkinson\'s Disease', 'Huntington\'s Disease'],
+        'Other': ['light', 'stress', 'sleepiness', 'arousal', 'obesity', 'hunger']
+    },
 }
 
 var Node = function(id, name) {
@@ -108,7 +118,54 @@ window.addEventListener('load', function() {
 });
 
 function populateNodeFilterer() {
-    // TODO populate the keywords in the top slider bar dynamically here
+    var html = '';
+
+    var generateCheckbox = function(label) {
+        var checkbox = '';
+        checkbox += '<div class="checkbox"><label>';
+        checkbox += '<input type="checkbox"> ' + label;
+        checkbox += '</label></div>';
+        return checkbox;
+    };
+
+    _.each(filterKeywords, function(categoryItems, categoryKey) {
+        html += '<div class="col-sm-4"><div class="well well-sm">';
+        html += '<h4>' + categoryKey + '</h4>';
+        if (_.isArray(categoryItems)) {
+            _.each(categoryItems, function(item) {
+                html += generateCheckbox(item);
+            });
+        } else {
+            html += '<div class="row">';
+            _.each(categoryItems, function(subcategoryItems, subcategoryKey) {
+                html += '<div class="col-sm-4">';
+                html += '<h6>' + subcategoryKey + '</h6>';
+                if (_.isArray(subcategoryItems)) {
+                    _.each(subcategoryItems, function(item) {
+                        html += generateCheckbox(item);
+                    });
+                } else {
+                    html += '<div class="row">';
+                    _.each(subcategoryItems, function(items, key) {
+                        html += '<div class="col-sm-12">';
+                        html += '<h7>' + key + '</h7>';
+                        _.each(items, function(item) {
+                            html += generateCheckbox(item);
+                        });
+                        html += '</div>'
+                    });
+                    html += '</div>'
+                }
+                html += '</div>';
+            });
+            html += '</div>';
+        }
+        html += '</div></div>';
+    });
+    
+    var newHtml = $('#filter-terms-anchor').html() + html;
+    $('#filter-terms-anchor').html(newHtml);
+    
 }
 
 function fetchRelations() {
