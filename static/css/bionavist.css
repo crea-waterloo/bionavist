@@ -21,3 +21,7 @@
     max-width: 800px;
     height: 200px;
 }
+
+label {
+    word-wrap: break-word;
+}

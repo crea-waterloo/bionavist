@@ -2,6 +2,23 @@ function handleClickNode(node) {
     $('#dp-name').text(node.label).show();
     $('#dp-description').text('A description of ' + node.label + '.').show();
 
+    $.ajax({
+        url: "http://lookup.dbpedia.org/api/search.asmx/KeywordSearch", 
+        data: { QueryString: node.label, MaxHits: '1' }, 
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Accept', 'application/json');
+        },
+        success: function (data) {
+            console.log(data);
+            if (data.results[0]) {
+                $('#dp-description').text(data.results[0].description).show();
+            } else {
+                $('#dp-description').text('No description is available.');
+            }
+        }
+    });
+
     // find edges whose subject is this node
     var outwardEdges = _.filter(edges, function(edge) {
         return edge.source.toString() === node.id;

@@ -5,21 +5,21 @@ var CANVAS_WIDTH = 900,
 
 var filterKeywords = {
     substance: {
-        proteins: ['actin', 'myosin', 'myoglobin', 'hemoglobin', 'melanopsin'],
+        proteins: ['actin', 'myosin', 'myoglobin', 'hemoglobin', 'melanopsin', 'photoisomerase', 'opsin', 'collagen', 'adiponectin', 'tropoelastin', 'elasin'],
         hormones: {
-            amine: ['insulin', 'oxytocin', 'cortisol'],
-            peptide: ['progesterone', 'estrogen', 'testosterone']
+            amine: ['insulin', 'oxytocin', 'cortisol', 'glucagon', 'neuroestrogen'],
+            peptide: ['progesterone', 'estrogen', 'testosterone', 'growth hormone', 'growth factor']
         },
-        neurotransmitters: ['dopamine', 'serotonin']
+        neurotransmitters: ['dopamine', 'serotonin', 'norepinephrine', 'epinephrine', 'acetylcholine', 'GABA', 'catechcholamine']
     },
     structure: {
-        'Biological Systems': ['immune system', 'limbic system'],
-        'Tissues/Organs': ['amygdala', 'hypothalamus'],
-        'Cells': ['lymphocyte', 'native T cell']
+        'Biological Systems': ['immune system', 'limbic system', 'circulatory system', 'digestive system', 'integumentary system', 'lymphatic system'],
+        'Tissues/Organs': ['amygdala', 'hypothalamus', 'thalamus', 'hippocampus', 'pituitary gland', 'adrenal gland', 'pancreas', 'acruate nucleus', 'kidney', 'blood vessels', 'esophagus', 'tumor'],
+        'Cells': ['lymphocyte', 'native T cell', 'helper T cell', 'cytotoxic T cell', 'activated T cell', 'rested T cells', 'spermatocyte', 'leukocyte', 'adipocyte', 'neuron', 'astrocyte', 'stem cell']
     },
     process: {
-        'Bio-Phenomena': ['apoptosis', 'glycolysis'],
-        'Physiological': ['digestion', 'metabolism'],
+        'Bio-Phenomena': ['apoptosis', 'glycolysis', 'glycogenolysis', 'glycolysis', 'lipolysis', 'embryogenesis'],
+        'Physiological': ['digestion', 'metabolism', 'heart rate', 'vasodilation', 'systolic blood pressure', 'diasystolic blood pressure'],
         'Cognitive': ['memory', 'attention', 'arousal', 'intelligence'],
         'Disease': ['cancer', 'diabetes', 'Parkinson\'s Disease', 'Huntington\'s Disease'],
         'Other': ['light', 'stress', 'sleepiness', 'arousal', 'obesity', 'hunger']
