@@ -1,6 +1,7 @@
 var s;
-var CANVAS_WIDTH = 900;
-var CANVAS_HEIGHT = 600;
+var CANVAS_WIDTH = 900,
+    CANVAS_HEIGHT = 600,
+    MAX_NODES = 2000;
 
 var filterKeywords = {
     substance: {
@@ -121,7 +122,7 @@ function getRandomInt(min, max) {
 
 function handleOnMessage(relation) {
 
-    if (nodes.length > 75) return;
+    if (nodes.length > MAX_NODES) return;
     var subjectNode = _.find(nodes, function(node) {
         return node.name === relation.subject;
     });
