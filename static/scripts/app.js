@@ -237,7 +237,6 @@ function handleOnMessage(relation) {
 
 function handleConnectionClose() {
     console.log("Connection closed");
-    s.refresh();
 }
 
 function handleClickEdge(edge) {

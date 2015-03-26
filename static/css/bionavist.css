@@ -7,13 +7,16 @@
 }
 
 #right-side-bar {
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 50px;
     background: #e5e5e5;
     word-wrap: break-word;
 }
 
 #dp-name, #subject-actions-title {
     text-transform: uppercase;
-    display: none;
 }
 
 #subject-verb-histogram {
