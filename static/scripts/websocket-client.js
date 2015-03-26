@@ -7,7 +7,7 @@ function websocketClient() {
         connection.send("fetch");
     };
     connection.onclose = function () {
-        console.log("Connection closed");
+        handleConnectionClose();
     };
     connection.onerror = function () {
         console.error("Connection error");

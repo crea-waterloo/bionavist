@@ -1,6 +1,7 @@
 var s;
-var CANVAS_WIDTH = 900;
-var CANVAS_HEIGHT = 600;
+var CANVAS_WIDTH = 900,
+    CANVAS_HEIGHT = 600,
+    MAX_NODES = 2000;
 
 var filterKeywords = {
     substance: {
@@ -69,7 +70,8 @@ window.addEventListener('load', function() {
             maxEdgeSize: 4,
             enableEdgeHovering: true,
             edgeHoverSizeRatio: 1,
-            edgeHoverExtremities: true
+            edgeHoverExtremities: true,
+            batchEdgesDrawing: true
         }
     });
 
@@ -95,7 +97,7 @@ window.addEventListener('load', function() {
     //     // type: 't'
     // });
 
-    s.refresh();
+    // s.refresh();
 
     s.bind('overEdge outEdge clickEdge doubleClickEdge rightClickEdge', function(e) {
         console.log(e.type, e.data.edge, e.data.captor);
@@ -177,7 +179,7 @@ function getRandomInt(min, max) {
 }
 
 function handleOnMessage(relation) {
-    if (nodes.length > 75) return;
+    if (nodes.length > MAX_NODES) return;
     var subjectNode = _.find(nodes, function(node) {
         return node.name === relation.subject;
     });
@@ -230,6 +232,11 @@ function handleOnMessage(relation) {
 
     edge.addLink(relation.link);
 
+    // s.refresh();
+}
+
+function handleConnectionClose() {
+    console.log("Connection closed");
     s.refresh();
 }
 
@@ -244,9 +251,11 @@ function handleClickStage() {
 function applyLayout() {
     s.startForceAtlas2({
         linLogMode: false,
-        edgeWeightInfluence: 0.2,
         scalingRatio: 100,
-        iterationsPerRender: 10000
+        iterationsPerRender: 10000,
+        outboundAttractionDistribution: true,
+        // adjustSizes: true,
+        edgeWeightInfluence: 0.2
     });
 }
 
