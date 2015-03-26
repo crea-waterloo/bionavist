@@ -128,6 +128,53 @@ function collapseClasses() {
 	return classesHash;
 }
 
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function addColorToCluster(arrayOfNodes) {
+	var color = getRandomColor();
+	if (DEBUG_MODE)
+		console.log('Adding color to cluster');
+
+	arrayOfNodes.forEach(function (entry) {
+		var foundNode = findNode(entry);
+		if (foundNode) {
+			foundNode.color = color;
+		}
+	});
+}
+
+function findNode(id) {
+	if (typeof id != 'string')
+		id = id.toString();
+
+	var graphNodes = s.graph.nodes();
+	for (var i = 0; i < graphNodes.length; i++) {
+		if (graphNodes[i].id == id)
+			return graphNodes[i];
+	}
+	return false;
+}
+
+var DIVISION_SIZE = 800,
+	DIVISIONS_PER_ROW = 6,
+	divisionCounter = -1;
+function createDivisions() {
+	divisionCounter++;
+	var row = Math.floor(divisionCounter / DIVISIONS_PER_ROW);
+	var col = divisionCounter % DIVISIONS_PER_ROW;
+	return {x1: DIVISION_SIZE*(col-1),
+			x2: DIVISION_SIZE*(col),
+			y1: DIVISION_SIZE*(row-1),
+			y2: DIVISION_SIZE*(row)};
+}
+
 function dropNodes() {
 	var errCounter = 0;
 	var CLUSTER_CUT_OFF_SIZE = 10;
@@ -147,6 +194,9 @@ function dropNodes() {
 					}
 				}
 			});
+		} else {
+			addColorToCluster(classesHash[key]);
+			moveCluster(classesHash[key]);
 		}
 	}
 	s.refresh();
@@ -154,6 +204,19 @@ function dropNodes() {
 	if (DEBUG_MODE) {
 		console.log(' > Finished with ' + errCounter + ' errors');
 	}
+}
+
+function moveCluster(arrayOfNodes) {
+	var division = createDivisions();
+	if (DEBUG_MODE)
+		console.log('Moving cluster to division ' + divisionCounter);
+	arrayOfNodes.forEach(function (entry) {
+		var foundNode = findNode(entry);
+		if (foundNode) {
+			foundNode.x = getRandomInt(division.x1, division.x2);
+			foundNode.y = getRandomInt(division.y1, division.y2);
+		}
+	});
 }
 
 // Main Function

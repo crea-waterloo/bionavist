@@ -257,12 +257,12 @@ function handleClickStage() {
 
 function applyLayout() {
     s.startForceAtlas2({
-        linLogMode: true1,
-        edgeWeightInfluence: 0.2,
+        linLogMode: false,
         scalingRatio: 100,
         iterationsPerRender: 10000,
-        outboundAttractionDistribution: false,
-        adjustSizes: true
+        outboundAttractionDistribution: true,
+        // adjustSizes: true,
+        edgeWeightInfluence: 0.2
     });
 }
 
