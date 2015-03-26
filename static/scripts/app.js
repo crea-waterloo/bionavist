@@ -60,7 +60,8 @@ window.addEventListener('load', function() {
             maxEdgeSize: 4,
             enableEdgeHovering: true,
             edgeHoverSizeRatio: 1,
-            edgeHoverExtremities: true
+            edgeHoverExtremities: true,
+            batchEdgesDrawing: true
         }
     });
 
@@ -86,7 +87,7 @@ window.addEventListener('load', function() {
     //     // type: 't'
     // });
 
-    s.refresh();
+    // s.refresh();
 
     s.bind('overEdge outEdge clickEdge doubleClickEdge rightClickEdge', function(e) {
         console.log(e.type, e.data.edge, e.data.captor);
@@ -175,6 +176,11 @@ function handleOnMessage(relation) {
 
     edge.addLink(relation.link);
 
+    // s.refresh();
+}
+
+function handleConnectionClose() {
+    console.log("Connection closed");
     s.refresh();
 }
 
@@ -251,10 +257,12 @@ function handleClickStage() {
 
 function applyLayout() {
     s.startForceAtlas2({
-        linLogMode: false,
+        linLogMode: true1,
         edgeWeightInfluence: 0.2,
         scalingRatio: 100,
-        iterationsPerRender: 10000
+        iterationsPerRender: 10000,
+        outboundAttractionDistribution: false,
+        adjustSizes: true
     });
 }
 
