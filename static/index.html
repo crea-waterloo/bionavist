@@ -19,6 +19,8 @@
     <script src="scripts/websocket-client.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/clustering.js"></script>
+    <script src="scripts/widgets/table/table.js"></script>
+    <script src="scripts/node_description.js"></script>
     <title>Bionavist</title>
 
     <style type="text/css">
@@ -31,7 +33,7 @@
 <body>
     <header>
         <div class="panel-group" id="home-accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
+            <div class="panel panel-default" id="bionavist-top-bar">
                 <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <button type="button" class="close"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
                     <div class="panel-body">
@@ -144,25 +146,23 @@
 
     <div class="container-fluid top-element">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <div class="row">
-                    <div class="col-md-12">
-                        <input class="btn btn-primary" type="button" value="Apply Layout" onclick="applyLayout()">
-                        <input class="btn btn-primary" type="button" value="Stop Layout" onclick="stopLayout()">
-                    </div>
-
                     <div class="col-md-12">
                         <div id="graph-container"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-2" id="right-side-bar">
+            <div class="col-md-3" id="right-side-bar">
                 <h3>Description Panel</h3>
                 <h4 id="dp-name">Biological Substance Name</h4>
                 <p id="dp-description">Click on a node or edge to see its description.</p>
                 <div id="subject-verb-histogram"></div>
                 <h5></h5>
+                <div id="subject-verb-actions">
+                    <h5 id="subject-actions-title">Actions</h5>
+                </div>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@
     word-wrap: break-word;
 }
 
-#dp-name {
+#dp-name, #subject-actions-title {
     text-transform: uppercase;
     display: none;
 }
