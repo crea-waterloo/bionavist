@@ -10,7 +10,6 @@ var PanelModule = (function($) {
         },
 
         render: function() {
-            var close = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
             var title = '<h3>' + this.title + '</h3>';
             var subcomponentContent = '';
             _.each(this.subcomponents, function(subcomponent) {
@@ -21,7 +20,7 @@ var PanelModule = (function($) {
             });
             var div = document.createElement('div');
             div = $(div);
-            div.html(close + title + subcomponentContent);
+            div.html(title + subcomponentContent);
             return div;
         }
     });

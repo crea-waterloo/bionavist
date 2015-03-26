@@ -39,8 +39,6 @@ function updateNodeDescriptionPanel(groupedEdges, nodeDescriptionPanel) {
     if (_.keys(groupedEdges).length > 0) {
         updateNodeHistogram(groupedEdges);
     }
-
-    $('#right-side-bar').show();
 }
 
 function updateNodeHistogram(groupedEdges) {
