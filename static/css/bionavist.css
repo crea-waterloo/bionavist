@@ -12,7 +12,7 @@
 }
 
 #dp-name, #subject-actions-title {
-    text-transform: uppercase;
+    text-transform: lowercase;
 }
 
 #subject-verb-histogram {
@@ -22,5 +22,5 @@
 }
 
 label {
-    word-wrap: break-word;
+    word-wrap: normal;
 }
