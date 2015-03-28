@@ -153,7 +153,7 @@ function populateNodeFilterer() {
                 } else {
                     html += '<div class="row">';
                     _.each(subcategoryItems, function(items, key) {
-                        html += '<div class="col-sm-12">';
+                        html += '<div class="col-xs-6 col-sm-3">';
                         html += '<h7>' + key + '</h7>';
                         _.each(items, function(item) {
                             html += generateCheckbox(item);
