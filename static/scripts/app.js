@@ -20,12 +20,12 @@ var filterKeywords = {
     },
     process: {
         'Molecular event': ['DNA synthesis', 'transcription', 'translation', 'DNA damage', 'DNA repair'], 
-        'Pathway event': ['[X] reuptake', 'MAPKKK cascade', 'signal transduction', '[X] binding', '[X] transport'],
-        'Biological Phenomena': ['necrosis', 'apoptosis', 'glycolysis', 'glycogenolysis', 'glycolysis', 'lipolysis', 'embryogenesis', 'spermatogenesis'],
+        'Pathway event': ['[X]-reuptake', 'MAPKKK cascade', 'signal transduction', '[X]-binding', '[X]-transport'],
         'Physiological': ['digestion', 'metabolism', 'heart rate', 'vasodilation', 'blood pressure'],
         'Cognitive': ['memory', 'memory loss', 'attention', 'intelligence', 'executive function', 'perception'],
-        'Disease/Disorder': ['ebola', 'cancer', 'diabetes', 'ADHD', 'Parkinson\'s Disease', 'Huntington\'s Disease', 'obesity', 'anorexia', 'drug addiction', 'alcoholism'],
         'Environmental event': ['drug administration', 'X injection', 'drug use', 'food intake', 'sun exposure', 'smoke inhalation'],
+        'Biological Phenomena': ['necrosis', 'apoptosis', 'glycolysis', 'glycogenolysis', 'glycolysis', 'lipolysis', 'embryogenesis', 'spermatogenesis'],
+        'Disease/Disorder': ['ebola', 'cancer', 'diabetes', 'ADHD', 'Parkinson\'s Disease', 'Huntington\'s Disease', 'obesity', 'anorexia', 'drug addiction', 'alcoholism'],
         'Other': ['light', 'dark', 'stress', 'sleepiness', 'arousal', 'hunger', 'fear', 'hearing', 'eye-sight', 'bone-formation', 'cell growth', 'death', 'aging', 'skin degeneration', 'thinning']
     },
 }
