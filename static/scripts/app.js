@@ -1,16 +1,16 @@
 var s;
-var CANVAS_WIDTH = 900,
+var CANVAS_WIDTH = 1100,
     CANVAS_HEIGHT = 600,
     MAX_NODES = 2000;
 
 var filterKeywords = {
     substance: {
-        protein: ['actin', 'myosin', 'myoglobin', 'hemoglobin', 'melanopsin', 'photoisomerase', 'opsin', 'collagen', 'adiponectin', 'tropoelastin', 'elastin'],
-        hormone: {
+        'Protein': ['actin', 'myosin', 'myoglobin', 'hemoglobin', 'melanopsin', 'photoisomerase', 'opsin', 'collagen', 'adiponectin', 'tropoelastin', 'elastin'],
+        'Hormone': {
             amine: ['insulin', 'oxytocin', 'cortisol', 'glucagon', 'neuroestrogen'],
             peptide: ['progesterone', 'estrogen', 'testosterone', 'growth hormone', 'growth factor']
         },
-        neurotransmitter: ['dopamine', 'serotonin', 'norepinephrine', 'epinephrine', 'acetylcholine', 'GABA', 'catechcholamine']
+        'Neurotransmitter': ['dopamine', 'serotonin', 'norepinephrine', 'epinephrine', 'acetylcholine', 'GABA', 'catechcholamine']
     },
     structure: {
         'Biological System': ['immune system', 'limbic system', 'circulatory system', 'digestive system', 'integumentary system', 'lymphatic system'],
