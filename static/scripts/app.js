@@ -6,7 +6,7 @@ var CANVAS_WIDTH = 900,
 var filterKeywords = {
     substance: {
         'Protein': ['actin', 'myosin', 'myoglobin', 'hemoglobin', 'melanopsin', 'photoisomerase', 'opsin', 'collagen', 'adiponectin', 'tropoelastin', 'elastin'],
-        'Hormone': {
+        'Hormone:': {
             amine: ['insulin', 'oxytocin', 'cortisol', 'glucagon', 'neuroestrogen'],
             peptide: ['progesterone', 'estrogen', 'testosterone', 'growth hormone', 'growth factor']
         },
@@ -19,11 +19,13 @@ var filterKeywords = {
         'Receptor': ['G-protein coupled receptor', 'calcium ion channel', 'transport channel', 'serotonin receptor']
     },
     process: {
-        'Molecular event': ['DNA synthesis', 'transcription', 'translation', 'DNA damage', 'DNA repair'], 
-        'Pathway event': ['[X]-reuptake', 'MAPKKK cascade', 'signal transduction', '[X]-binding', '[X]-transport'],
+        'Event Type:': {
+            'Molecular': ['DNA synthesis', 'transcription', 'translation', 'DNA damage', 'DNA repair'], 
+            'Pathway': ['[X]-reuptake', 'MAPKKK cascade', 'signal transduction', '[X]-binding', '[X]-transport'],
+            'Environmental': ['drug administration', 'X injection', 'drug use', 'food intake', 'sun exposure', 'smoke inhalation']
+        },
         'Physiological': ['digestion', 'metabolism', 'heart rate', 'vasodilation', 'blood pressure'],
         'Cognitive': ['memory', 'memory loss', 'attention', 'intelligence', 'executive function', 'perception'],
-        'Environmental event': ['drug administration', 'X injection', 'drug use', 'food intake', 'sun exposure', 'smoke inhalation'],
         'Biological Phenomena': ['necrosis', 'apoptosis', 'glycolysis', 'glycogenolysis', 'glycolysis', 'lipolysis', 'embryogenesis', 'spermatogenesis'],
         'Disease/Disorder': ['ebola', 'cancer', 'diabetes', 'ADHD', 'Parkinson\'s Disease', 'Huntington\'s Disease', 'obesity', 'anorexia', 'drug addiction', 'alcoholism'],
         'Other': ['light', 'dark', 'stress', 'sleepiness', 'arousal', 'hunger', 'fear', 'hearing', 'eye-sight', 'bone-formation', 'cell growth', 'death', 'aging', 'skin degeneration', 'thinning']
