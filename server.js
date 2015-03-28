@@ -13,6 +13,7 @@ var http = require('http'),
 // Variables
 var connParam = process.env.PG_CONN,
     httpPort = process.argv[2],
+    websocketPort = process.argv[3],
     router = new Router({static_route: __dirname + '/static'}),
     filePath = "static/index.html",
     websocketStream;
@@ -75,7 +76,7 @@ server.listen(httpPort);
 // // Websocket Server
 // var someOtherServer = http.createServer();
 // websocket.createServer({server: someOtherServer}, fetchFromPostgres);
-// someOtherServer.listen(8081);
+// someOtherServer.listen(websocketPort);
 
 var wsserver = nodejswebsocket.createServer(function (connection) {
     connection.on("text", function (str) {
@@ -109,4 +110,4 @@ var wsserver = nodejswebsocket.createServer(function (connection) {
         }
     });
 });
-wsserver.listen(8081);
+wsserver.listen(websocketPort);

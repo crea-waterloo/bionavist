@@ -17,9 +17,9 @@ $(document).ready(function() {
         dropNodes();
     });
 
-    $('#bionavist-top-bar').on('hidden.bs.collapse', function () {
-        cluster();
-        dropNodes();
-    });
+    // $('#bionavist-top-bar').on('hidden.bs.collapse', function () {
+    //     cluster();
+    //     dropNodes();
+    // });
 
 });
