@@ -1,5 +1,5 @@
 var s;
-var CANVAS_WIDTH = 1100,
+var CANVAS_WIDTH = 900,
     CANVAS_HEIGHT = 600,
     MAX_NODES = 2000;
 
