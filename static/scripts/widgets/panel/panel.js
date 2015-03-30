@@ -43,11 +43,15 @@ var PanelModule = (function($) {
             var rows = [];
             var rowIndex = 1;
             _.each(groupedEdges, function(edges, edgeName) {
-                rows.push([rowIndex, edgeName, _.unique(edges).length, edges.length]);
+                var objectStr = '';
+                _.each(edges, function(edge) {
+                    objectStr += nodes[edge.target].name + ', ';
+                });
+                rows.push([edgeName, _.unique(edges).length, edges.length, objectStr.slice(0, -2)]);
                 rowIndex++;
             });
 
-            var table = new TableModule.Table(['#', 'Verb', 'Unique Count', 'Total Count'], rows);
+            var table = new TableModule.Table(['Verb', 'Unique Count', 'Total Count', 'Objects'], rows);
             this.subcomponents.push(table);
         }
     };
