@@ -13,7 +13,7 @@ var filterKeywords = {
     structure: ['collagen structure', 'collagen structure', 'hypothalamus', 'pituitary gland', 'adrenal cortex'],
     process: ['leptin hunger response', 'aging', 'reuptake', 'uptake']
 };
-        
+
 // var filterKeywords = {
 //     substance: {
 //         'Protein': ['actin', 'myosin', 'myoglobin', 'hemoglobin', 'melanopsin', 'photoisomerase', 'opsin', 'collagen', 'adiponectin', 'tropoelastin', 'elastin'],
@@ -42,6 +42,8 @@ var filterKeywords = {
 //         'Other': ['light', 'stress', 'sleepiness', 'arousal', 'hunger', 'bone-formation', 'death', 'aging', 'skin degeneration']
 //     },
 // }
+
+var currentFilter = [];
 
 var Node = function(id, name) {
     this.id = id;
@@ -75,6 +77,24 @@ var g = {
 
 window.addEventListener('load', function() {
     populateNodeFilterer();
+
+    $('#update-filter').click(function() {
+        currentFilter = [];
+        $('form :checked').each(function(index) {
+            currentFilter.push(this.value);
+        });
+
+        var filteredNodes = _.filter(nodes, function(node) {
+            var showNode = false;
+            _.each(currentFilter, function(keyword) {
+                if (node.name.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
+                    showNode = true;
+                    return;
+                }
+            });
+            return showNode;
+        });
+    });
 
     s = new sigma({
         graph: g,
@@ -137,12 +157,12 @@ window.addEventListener('load', function() {
 });
 
 function populateNodeFilterer() {
-    var html = '';
+    var html = '<form>';
 
     var generateCheckbox = function(label) {
         var checkbox = '';
         checkbox += '<div class="checkbox"><label>';
-        checkbox += '<input type="checkbox"> ' + label;
+        checkbox += '<input class="topbar-filter-checkbox" type="checkbox" value="' + label + '"> ' + label;
         checkbox += '</label></div>';
         return checkbox;
     };
@@ -181,6 +201,8 @@ function populateNodeFilterer() {
         }
         html += '</div></div>';
     });
+
+    html += '</form>';
     
     var newHtml = $('#filter-terms-anchor').html() + html;
     $('#filter-terms-anchor').html(newHtml);
