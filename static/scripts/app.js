@@ -10,10 +10,9 @@ var filterKeywords = {
         'Neurotransmitter': ['dopamine', 'serotonin', 'norepinephrine', 'epinephrine', 'adrenaline', 'vasopressin', 'GABA', 'catechcholamine', 'retina dopamine'],
         'Other': ['glucose', 'gastric acid', 'receptor', 'elastase', 'calpain', 'alpha-1-antitrypsin', 'alapha-2-macroglobulin', 'adrenal cortex cortisol']
     },
-    structure: ['collagen structure', 'collagen structure', 'hypothalamus', 'pituitary gland', 'adrenal cortex']
-    },
+    structure: ['collagen structure', 'collagen structure', 'hypothalamus', 'pituitary gland', 'adrenal cortex'],
     process: ['leptin hunger response', 'aging', 'reuptake', 'uptake']
-}
+};
         
 // var filterKeywords = {
 //     substance: {
