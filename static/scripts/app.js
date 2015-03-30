@@ -195,6 +195,53 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
+// ECMAScript 7
+if (![].includes) {
+  Array.prototype.includes = function(searchElement /*, fromIndex*/ ) {
+    'use strict';
+    var O = Object(this);
+    var len = parseInt(O.length) || 0;
+    if (len === 0) {
+      return false;
+    }
+    var n = parseInt(arguments[1]) || 0;
+    var k;
+    if (n >= 0) {
+      k = n;
+    } else {
+      k = len + n;
+      if (k < 0) {k = 0;}
+    }
+    var currentElement;
+    while (k < len) {
+      currentElement = O[k];
+      if (searchElement === currentElement ||
+         (searchElement !== searchElement && currentElement !== currentElement)) {
+        return true;
+      }
+      k++;
+    }
+    return false;
+  };
+}
+
+function getCorrespondingArrayOfEdges(arrayOfNodes) {
+    var nodeIds = [],
+        arrayOfEdges = [];
+
+    _.each(arrayOfNodes, function (node) {
+        if (!nodeIds.includes(node.id))
+            nodeIds.push(node.id);
+    });
+
+    _.each(edges, function (edge) {
+        if (nodeIds.includes(edge.source) 
+            && nodeIds.includes(edge.target))
+            arrayOfEdges.push(edge);
+    });
+    return arrayOfEdges;
+}
+
 function redrawGraph(arrayOfNodes, arrayOfEdges) {
     var nodesDup = [],
         edgesDup = [];

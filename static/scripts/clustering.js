@@ -1,6 +1,8 @@
 // Data
-var clustering_nodes,
-	clustering_edges;
+var clusteringNodes,
+	clusteringEdges,
+	nodesMapForward,
+	nodesMapBackward;
 
 // Constants
 var DEBUG_MODE = true;
@@ -20,8 +22,20 @@ function initializeClustering(arrayOfNodes, arrayOfEdges) {
 	classMatrix = [];
 	classesHash = {};
 	// link
-	clustering_nodes = arrayOfNodes;
-	clustering_edges = arrayOfEdges;
+	clusteringNodes = arrayOfNodes;
+	clusteringEdges = arrayOfEdges;
+
+	nodesMapForward = [];
+	nodesMapBackward = [];
+
+	for (var i = 0; i < clusteringNodes.length; i++) {
+		nodesMapForward[i] = clusteringNodes[i].id;
+		nodesMapBackward[clusteringNodes[i].id] = i;
+	}
+	if (DEBUG_MODE) {
+		console.log(nodesMapForward);
+		console.log(nodesMapBackward);
+	}
 }
 
 function readInGraph() {
@@ -29,9 +43,9 @@ function readInGraph() {
 	if (DEBUG_MODE)
 		console.log('Initializing Adjacency Matrix');
 
-	for (var i = 0; i <= clustering_nodes.length; i++) {
+	for (var i = 0; i <= clusteringNodes.length; i++) {
 		adjMatrix[i] = [];
-		for (var j = 0; j <= clustering_nodes.length; j++) {
+		for (var j = 0; j <= clusteringNodes.length; j++) {
 			adjMatrix[i][j] = 0;
 		}
 	}
@@ -39,9 +53,9 @@ function readInGraph() {
 	if (DEBUG_MODE)
 		console.log('Populating Adjacency Matrix');
 
-	clustering_edges.forEach(function (edge) {
-		adjMatrix[edge.source][edge.target] = edge.links.length;
-		adjMatrix[edge.target][edge.source] = edge.links.length;
+	clusteringEdges.forEach(function (edge) {
+		adjMatrix[nodesMapBackward[edge.source]][nodesMapBackward[edge.target]] = edge.links.length;
+		adjMatrix[nodesMapBackward[edge.target]][nodesMapBackward[edge.source]] = edge.links.length;
 	});
 
 	if (DEBUG_MODE) {
@@ -53,8 +67,8 @@ function readInGraph() {
 	if (DEBUG_MODE)
 		console.log('Initializing Class Array');
 
-	clustering_nodes.forEach(function (vertex) {
-		classArray[vertex.id] = vertex.id;
+	clusteringNodes.forEach(function (node) {
+		classArray[nodesMapBackward[node.id]] = nodesMapBackward[node.id];
 	});
 
 	if (DEBUG_MODE) {
@@ -69,17 +83,15 @@ function updateClass() {
 	if (DEBUG_MODE) 
 		console.log('Updating class');
 
-	for (var i = 1; i <= clustering_nodes.length; i ++) {
+	for (var i = 0; i < clusteringNodes.length; i ++) {
 		classMatrix[i] = [];
-		var tempClassArray = Array.apply(null, new Array(clustering_nodes.length + 1))
-								  .map(Number.prototype.valueOf,0);
+		var tempClassArray = Array.apply(null, new Array(clusteringNodes.length + 1))
+								  .map(Number.prototype.valueOf, 0);
 
-
-		for (var j = 1; j <= clustering_nodes.length; j ++) {
+		for (var j = 0; j < clusteringNodes.length; j ++) {
 			if (adjMatrix[i][j] !== 0)
 				tempClassArray[classArray[j]] += adjMatrix[i][j];
 		}
-
 
 		classMatrix[i] = tempClassArray;
 		classArray[i] = tempClassArray.indexOf(Math.max.apply(Math, tempClassArray));
@@ -125,7 +137,7 @@ function collapseClasses() {
 		if (classesHash[classArray[i]] == null)
 			classesHash[classArray[i]] = [];
 
-		classesHash[classArray[i]].push(i);
+		classesHash[classArray[i]].push(nodesMapForward[i]);
 	}
 	if (DEBUG_MODE) {
 		console.log(' > Finished');
