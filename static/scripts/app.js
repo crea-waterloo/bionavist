@@ -94,6 +94,10 @@ window.addEventListener('load', function() {
             });
             return showNode;
         });
+        var correspondingEdges = getCorrespondingArrayOfEdges(filteredNodes);
+        console.log(filteredNodes);
+        console.log(correspondingEdges);
+        redrawGraph(filteredNodes, correspondingEdges);
     });
 
     s = new sigma({
@@ -108,7 +112,8 @@ window.addEventListener('load', function() {
             enableEdgeHovering: true,
             edgeHoverSizeRatio: 1,
             edgeHoverExtremities: true,
-            batchEdgesDrawing: true
+            batchEdgesDrawing: true,
+            minArrowSize: 5
         }
     });
 
@@ -268,12 +273,30 @@ function redrawGraph(arrayOfNodes, arrayOfEdges) {
     var nodesDup = [],
         edgesDup = [];
 
+    // s.graph.clear();
+
+    arrayOfNodes = _.filter(arrayOfNodes, function (node) {
+        var bool = false;
+        _.each(arrayOfEdges, function (edge) {
+            if (edge.source == node.id) bool = true;
+            if (edge.target == node.id) bool = true;
+        });
+        return bool;
+    });
+
+    console.log('arrayof nodes', arrayOfNodes);
+
     _.each(arrayOfNodes, function (node) {
         nodesDup.push({
             id: node.id.toString(),
             label: node.name,
             size: 1
         });
+        // s.graph.addNode({
+        //     id: node.id.toString(),
+        //     label: node.name,
+        //     size: 1
+        // });
     });
 
     _.each(arrayOfEdges, function (edge) {
@@ -284,7 +307,16 @@ function redrawGraph(arrayOfNodes, arrayOfEdges) {
             label: edge.name,
             type: "arrow"
         });
+        // s.graph.addEdge({
+        //     id: edge.id.toString(),
+        //     source: edge.source.toString(),
+        //     target: edge.target.toString(),
+        //     label: edge.name,
+        //     type: "arrow"
+        // });
     });
+
+
 
     s.graph.clear();
     s.graph.read({
@@ -294,8 +326,10 @@ function redrawGraph(arrayOfNodes, arrayOfEdges) {
 
     // clustering.js
     initializeClustering(arrayOfNodes, arrayOfEdges);
-    cluster();
+    cluster(0);
     dropNodes();
+
+    $('#home-accordion').remove();
 }
 
 function handleOnMessage(relation) {

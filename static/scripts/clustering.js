@@ -14,6 +14,9 @@ var adjMatrix = [],
 	classMatrix = [],
 	classesHash = {};
 
+var CLUSTER_CUT_OFF_SIZE = 10;
+
+
 function initializeClustering(arrayOfNodes, arrayOfEdges) {
 	// reset
 	adjMatrix = [];
@@ -196,7 +199,6 @@ function createDivisions() {
 
 function dropNodes() {
 	var errCounter = 0;
-	var CLUSTER_CUT_OFF_SIZE = 10;
 
 	if (DEBUG_MODE)
 		console.log('Dropping all clusters with size < ' + CLUSTER_CUT_OFF_SIZE);
@@ -239,7 +241,12 @@ function moveCluster(arrayOfNodes) {
 }
 
 // Main Function
-function cluster() {
+function cluster(clusterCutOff) {
+	if (clusterCutOff != null) 
+		CLUSTER_CUT_OFF_SIZE = clusterCutOff;
+	else 
+		CLUSTER_CUT_OFF_SIZE = 10;
+
 	readInGraph();
 	while (classChanges()) {
 		updateClass();
