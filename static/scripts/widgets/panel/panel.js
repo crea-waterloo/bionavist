@@ -43,11 +43,11 @@ var PanelModule = (function($) {
             var rows = [];
             var rowIndex = 1;
             _.each(groupedEdges, function(edges, edgeName) {
-                var objectStr = '';
+                var subentries = [];
                 _.each(edges, function(edge) {
-                    objectStr += nodes[edge.target].name + ', ';
+                    subentries.push({text: nodes[edge.target].name, link: edge.links[0]});
                 });
-                rows.push([edgeName, _.unique(edges).length, edges.length, objectStr.slice(0, -2)]);
+                rows.push([edgeName, _.unique(edges).length, edges.length, subentries]);
                 rowIndex++;
             });
 

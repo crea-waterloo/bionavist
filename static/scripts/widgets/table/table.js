@@ -12,15 +12,24 @@ var TableModule = (function($) {
             });
             thead += '</tr></thead>';
 
-            var tbody = '<tbody><tr>';
+            var tbody = '<tbody>';
             _.each(this.rows, function(row) {
                 tbody += '<tr>';
                 _.each(row, function(cell) {
-                    tbody += '<td>' + cell + '</td>';
+                    if (!_.isArray(cell)) {
+                        tbody += '<td>' + cell + '</td>';
+                    } else {
+                        tbody += '<td>';
+                        _.each(cell, function(subcell) {
+                            tbody += '<a href="' + subcell.link + '" target="_new">' + subcell.text + '</a>' + ', ';
+                        });
+                        tbody = tbody.slice(0, -2);
+                        tbody += '</td>';
+                    }
                 });
                 tbody += '</tr>';
             });
-            tbody += '</tr></tbody>';
+            tbody += '</tbody>';
 
             var table = document.createElement('table');
             table = $(table);
