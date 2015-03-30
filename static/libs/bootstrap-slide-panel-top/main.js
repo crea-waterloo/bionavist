@@ -13,6 +13,9 @@ $(document).ready(function() {
     // Button close panel
     $('#home-accordion .close').on('click', function() {
         $('#collapseOne').collapse('hide');
+        
+        // clustering.js
+        initializeClustering(nodes, edges);
         cluster();
         dropNodes();
     });

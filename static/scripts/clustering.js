@@ -1,6 +1,6 @@
 // Data
-var vertices,
-	edges;
+var clustering_nodes,
+	clustering_edges;
 
 // Constants
 var DEBUG_MODE = true;
@@ -20,8 +20,8 @@ function initializeClustering(arrayOfNodes, arrayOfEdges) {
 	classMatrix = [];
 	classesHash = {};
 	// link
-	vertices = arrayOfNodes;
-	edges = arrayOfEdges;
+	clustering_nodes = arrayOfNodes;
+	clustering_edges = arrayOfEdges;
 }
 
 function readInGraph() {
@@ -29,9 +29,9 @@ function readInGraph() {
 	if (DEBUG_MODE)
 		console.log('Initializing Adjacency Matrix');
 
-	for (var i = 0; i <= vertices.length; i++) {
+	for (var i = 0; i <= clustering_nodes.length; i++) {
 		adjMatrix[i] = [];
-		for (var j = 0; j <= vertices.length; j++) {
+		for (var j = 0; j <= clustering_nodes.length; j++) {
 			adjMatrix[i][j] = 0;
 		}
 	}
@@ -39,7 +39,7 @@ function readInGraph() {
 	if (DEBUG_MODE)
 		console.log('Populating Adjacency Matrix');
 
-	edges.forEach(function (edge) {
+	clustering_edges.forEach(function (edge) {
 		adjMatrix[edge.source][edge.target] = edge.links.length;
 		adjMatrix[edge.target][edge.source] = edge.links.length;
 	});
@@ -53,7 +53,7 @@ function readInGraph() {
 	if (DEBUG_MODE)
 		console.log('Initializing Class Array');
 
-	vertices.forEach(function (vertex) {
+	clustering_nodes.forEach(function (vertex) {
 		classArray[vertex.id] = vertex.id;
 	});
 
@@ -69,13 +69,13 @@ function updateClass() {
 	if (DEBUG_MODE) 
 		console.log('Updating class');
 
-	for (var i = 1; i <= vertices.length; i ++) {
+	for (var i = 1; i <= clustering_nodes.length; i ++) {
 		classMatrix[i] = [];
-		var tempClassArray = Array.apply(null, new Array(vertices.length + 1))
+		var tempClassArray = Array.apply(null, new Array(clustering_nodes.length + 1))
 								  .map(Number.prototype.valueOf,0);
 
 
-		for (var j = 1; j <= vertices.length; j ++) {
+		for (var j = 1; j <= clustering_nodes.length; j ++) {
 			if (adjMatrix[i][j] !== 0)
 				tempClassArray[classArray[j]] += adjMatrix[i][j];
 		}
@@ -228,7 +228,6 @@ function moveCluster(arrayOfNodes) {
 
 // Main Function
 function cluster() {
-	initializeClustering(nodes, edges);
 	readInGraph();
 	while (classChanges()) {
 		updateClass();
@@ -236,6 +235,5 @@ function cluster() {
 	if (DEBUG_MODE) 
 		console.log('Class assignment complete');
 
-	collapseClasses()
-
+	collapseClasses();
 }
