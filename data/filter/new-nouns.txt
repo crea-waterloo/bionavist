@@ -1,0 +1,55 @@
+ACTH
+adrenocorticotropic hormone
+cortisol
+insulin
+glucagon
+melatonin
+Adrenaline
+catecholamines
+dopamine
+epinephrine
+serotonin
+norepinephrine
+vasopressin
+leptin
+collagen
+vasopressin
+prolactin
+dopamine prolactin
+oxytocin
+oxytocin prolactin
+initial stress amygdala
+adrenal glands
+adrenaline
+bloodstream glucose
+food intake leptin
+ghrelin 
+somatostatin
+gastric acid
+glucose
+elastin
+melatonin
+D1 dopamine receptor
+D2 dopamine receptor
+aging dopamine receptor
+alpha1-adrenergic receptor
+beta1-adrenergic receptor
+retina dopamine
+hypthalamus CRH
+stress aging
+hypthalamus CRH
+anterior pituitary ACTH
+adrenal cortex cortisol
+PMN elastase
+calpain
+alpha-1-antitrypsin
+alpha-2-macroglobulin
+food intake ghrelin
+aging dopamine levels
+aging elastin structure
+elastin
+food intake glucose
+aging collagen structure
+MMP collagen structure
+leptin hunger response
+

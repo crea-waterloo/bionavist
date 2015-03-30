@@ -4,33 +4,45 @@ var CANVAS_WIDTH = 900,
     MAX_NODES = 2000;
 
 var filterKeywords = {
-    substance: {
-        'Protein': ['actin', 'myosin', 'myoglobin', 'hemoglobin', 'melanopsin', 'photoisomerase', 'opsin', 'collagen', 'adiponectin', 'tropoelastin', 'elastin'],
-        'Hormone:': {
-            'Amine': ['insulin', 'oxytocin', 'cortisol', 'glucagon', 'neuroestrogen'],
-            'Peptide': ['progesterone', 'estrogen', 'testosterone', 'growth hormone', 'growth factor']
-        },
-        'Neurotransmitter': ['dopamine', 'serotonin', 'norepinephrine', 'epinephrine', 'acetylcholine', 'GABA', 'catechcholamine']
+    substance: { 
+        'Protein': ['AANAT', 'melatonin', 'elastin', 'collagen', 'cytochrome c', 'adiponectin', 'opsin', 'collagen', 'adiponectin'],
+        'Hormone:': ['melatonin', 'cortisol', 'insulin', 'glucagon', 'adrenocorticotropic hormone', 'ACTH', 'oxytocin', 'prolactin', 'leptin', 'vasopressin', 'grelin', 'food intake leptin', 'somatostatin', 'globulin'],
+        'Neurotransmitter': ['dopamine', 'serotonin', 'norepinephrine', 'epinephrine', 'adrenaline', 'vasopressin', 'GABA', 'catechcholamine', 'retina dopamine'],
+        'Other': ['glucose', 'gastric acid', 'receptor', 'elastase', 'calpain', 'alpha-1-antitrypsin', 'alapha-2-macroglobulin', 'adrenal cortex cortisol']
     },
-    structure: {
-        'Biological System': ['immune system', 'limbic system', 'circulatory system', 'digestive system', 'integumentary system', 'lymphatic system'],
-        'Tissue | Organ': ['amygdala', 'hypothalamus', 'thalamus', 'hippocampus', 'pituitary gland', 'adrenal gland', 'pancreas', 'acruate nucleus', 'kidney', 'blood vessels', 'esophagus', 'tumor'],
-        'Cell Type': ['lymphocyte', 'native T cell', 'helper T cell', 'cytotoxic T cell', 'activated T cell', 'rested T cells', 'spermatocyte', 'leukocyte', 'adipocyte', 'neuron', 'astrocyte', 'stem cell'],
-        'Receptor': ['G-protein coupled receptor', 'calcium ion channel', 'transport channel', 'serotonin receptor']
+    structure: ['collagen structure', 'collagen structure', 'hypothalamus', 'pituitary gland', 'adrenal cortex']
     },
-    process: {
-        'Event Type:': {
-            'Molecular': ['DNA synthesis', 'transcription', 'translation', 'DNA damage', 'DNA repair'], 
-            'Pathway': ['[X]-reuptake', 'MAPKKK cascade', 'signal transduction', '[X]-binding', '[X]-transport'],
-            'Environmental': ['drug administration', 'X injection', 'drug use', 'food intake', 'sun exposure', 'smoke inhalation'],
-            'Biological Phenomena': ['necrosis', 'apoptosis', 'glycolysis', 'lipolysis', 'embryogenesis', 'spermatogenesis']
-        },
-        'Physiological': ['digestion', 'metabolism', 'heart rate', 'vasodilation', 'blood pressure'],
-        'Cognitive': ['memory', 'memory loss', 'attention', 'intelligence', 'executive function', 'perception'],
-        'Disease/Disorder': ['ebola', 'cancer', 'diabetes', 'ADHD', 'Parkinson\'s Disease', 'Huntington\'s Disease', 'obesity', 'anorexia', 'drug addiction', 'alcoholism'],
-        'Other': ['light', 'stress', 'sleepiness', 'arousal', 'hunger', 'bone-formation', 'death', 'aging', 'skin degeneration']
-    },
+    process: ['leptin hunger response', 'aging', 'reuptake', 'uptake']
 }
+        
+// var filterKeywords = {
+//     substance: {
+//         'Protein': ['actin', 'myosin', 'myoglobin', 'hemoglobin', 'melanopsin', 'photoisomerase', 'opsin', 'collagen', 'adiponectin', 'tropoelastin', 'elastin'],
+//         'Hormone:': {
+//             'Amine': ['insulin', 'oxytocin', 'cortisol', 'glucagon', 'neuroestrogen'],
+//             'Peptide': ['progesterone', 'estrogen', 'testosterone', 'growth hormone', 'growth factor']
+//         },
+//         'Neurotransmitter': ['dopamine', 'serotonin', 'norepinephrine', 'epinephrine', 'acetylcholine', 'GABA', 'catechcholamine']
+//     },
+//     structure: {
+//         'Biological System': ['immune system', 'limbic system', 'circulatory system', 'digestive system', 'integumentary system', 'lymphatic system'],
+//         'Tissue | Organ': ['amygdala', 'hypothalamus', 'thalamus', 'hippocampus', 'pituitary gland', 'adrenal gland', 'pancreas', 'acruate nucleus', 'kidney', 'blood vessels', 'esophagus', 'tumor'],
+//         'Cell Type': ['lymphocyte', 'native T cell', 'helper T cell', 'cytotoxic T cell', 'activated T cell', 'rested T cells', 'spermatocyte', 'leukocyte', 'adipocyte', 'neuron', 'astrocyte', 'stem cell'],
+//         'Receptor': ['G-protein coupled receptor', 'calcium ion channel', 'transport channel', 'serotonin receptor']
+//     },
+//     process: {
+//         'Event Type:': {
+//             'Molecular': ['DNA synthesis', 'transcription', 'translation', 'DNA damage', 'DNA repair'], 
+//             'Pathway': ['[X]-reuptake', 'MAPKKK cascade', 'signal transduction', '[X]-binding', '[X]-transport'],
+//             'Environmental': ['drug administration', 'X injection', 'drug use', 'food intake', 'sun exposure', 'smoke inhalation'],
+//             'Biological Phenomena': ['necrosis', 'apoptosis', 'glycolysis', 'lipolysis', 'embryogenesis', 'spermatogenesis']
+//         },
+//         'Physiological': ['digestion', 'metabolism', 'heart rate', 'vasodilation', 'blood pressure'],
+//         'Cognitive': ['memory', 'memory loss', 'attention', 'intelligence', 'executive function', 'perception'],
+//         'Disease/Disorder': ['ebola', 'cancer', 'diabetes', 'ADHD', 'Parkinson\'s Disease', 'Huntington\'s Disease', 'obesity', 'anorexia', 'drug addiction', 'alcoholism'],
+//         'Other': ['light', 'stress', 'sleepiness', 'arousal', 'hunger', 'bone-formation', 'death', 'aging', 'skin degeneration']
+//     },
+// }
 
 var Node = function(id, name) {
     this.id = id;
