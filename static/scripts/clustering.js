@@ -13,6 +13,13 @@ var adjMatrix = [],
 	classesHash = {};
 
 function initializeClustering(arrayOfNodes, arrayOfEdges) {
+	// reset
+	adjMatrix = [];
+	classArray = [];
+	divisionCounter = -1;
+	classMatrix = [];
+	classesHash = {};
+	// link
 	vertices = arrayOfNodes;
 	edges = arrayOfEdges;
 }
@@ -232,5 +239,3 @@ function cluster() {
 	collapseClasses()
 
 }
-
-
