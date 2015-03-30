@@ -184,6 +184,40 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
+function redrawGraph(arrayOfNodes, arrayOfEdges) {
+    var nodesDup = [],
+        edgesDup = [];
+
+    _.each(arrayOfNodes, function (node) {
+        nodesDup.push({
+            id: node.id.toString(),
+            label: node.name,
+            size: 1
+        });
+    });
+
+    _.each(arrayOfEdges, function (edge) {
+        edgesDup.push({
+            id: edge.id.toString(),
+            source: edge.source.toString(),
+            target: edge.target.toString(),
+            label: edge.name,
+            type: "arrow"
+        });
+    });
+
+    s.graph.clear();
+    s.graph.read({
+        nodes: nodesDup,
+        edges: edgesDup
+    });
+
+    // clustering.js
+    initializeClustering(arrayOfNodes, arrayOfEdges);
+    cluster();
+    dropNodes();
+}
+
 function handleOnMessage(relation) {
     if (nodes.length > MAX_NODES) return;
     var subjectNode = _.find(nodes, function(node) {
