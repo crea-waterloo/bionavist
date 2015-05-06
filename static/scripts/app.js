@@ -2,6 +2,7 @@ var s;
 var CANVAS_WIDTH = 900,
     CANVAS_HEIGHT = 600,
     MAX_NODES = 2000;
+var updateGraph = true;
 
 var filterKeywords = {
     substance: { 
@@ -94,10 +95,13 @@ window.addEventListener('load', function() {
             });
             return showNode;
         });
+
+        updateGraph = false;
         var correspondingEdges = getCorrespondingArrayOfEdges(filteredNodes);
         console.log(filteredNodes);
         console.log(correspondingEdges);
         redrawGraph(filteredNodes, correspondingEdges);
+        $('#collapseOne').collapse('hide');
     });
 
     s = new sigma({
@@ -328,8 +332,7 @@ function redrawGraph(arrayOfNodes, arrayOfEdges) {
     initializeClustering(arrayOfNodes, arrayOfEdges);
     cluster(0);
     dropNodes();
-
-    $('#home-accordion').remove();
+    updateGraph = true;
 }
 
 function handleOnMessage(relation) {
