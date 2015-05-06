@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://fb.me/react-0.13.2.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.2.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.4.0/lodash.js"></script>
     <script src="libs/sigma-js/sigma.min.js"></script>
@@ -19,9 +21,8 @@
     <script src="scripts/websocket-client.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/clustering.js"></script>
-    <script src="scripts/widgets/table/table.js"></script>
-    <script src="scripts/widgets/panel/panel.js"></script>
     <script src="scripts/node_description.js"></script>
+    <script type="text/jsx" src="scripts/react_sidebar.js"></script>
     <title>Bionavist</title>
 
     <style type="text/css">
@@ -75,7 +76,6 @@
             </div>
 
             <div class="col-md-3" id="right-side-bar">
-                <p>Click on a node or edge to see its description.</p>
             </div>
         </div>
     </div>

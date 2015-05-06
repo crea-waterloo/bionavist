@@ -9,7 +9,8 @@ function handleClickNode(node) {
         return edge.name;
     });
 
-    var nodeDescriptionPanel = new PanelModule.NodeDescriptionPanel(node, groupedEdges);
+    updateReactPanel(node, groupedEdges);
+    updatePanelDescription('Fetching description...');
 
     $.ajax({
         url: "http://lookup.dbpedia.org/api/search.asmx/KeywordSearch", 
@@ -20,69 +21,10 @@ function handleClickNode(node) {
         },
         success: function (data) {
             if (data.results[0]) {
-                nodeDescriptionPanel.setDescription(data.results[0].description);
+                updatePanelDescription(data.results[0].description);
             } else {
-                nodeDescriptionPanel.setDescription('No description is available.');
+                updatePanelDescription('No description is available.');
             }
-
-            // render
-            updateNodeDescriptionPanel(groupedEdges, nodeDescriptionPanel);
         }
-    });
-}
-
-function updateNodeDescriptionPanel(groupedEdges, nodeDescriptionPanel) {
-    $('#right-side-bar').empty();
-    $('#right-side-bar').append(nodeDescriptionPanel.render());
-
-    // perform actions only when the node is a subject/has outgoing edges
-    if (_.keys(groupedEdges).length > 0) {
-        updateNodeHistogram(groupedEdges);
-    }
-}
-
-function updateNodeHistogram(groupedEdges) {
-    $('#subject-verb-histogram').highcharts({
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Verb Frequency'
-        },
-        xAxis: {
-            categories: _.keys(groupedEdges),
-            title: {
-                text: null
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Frequency',
-                align: 'high'
-            },
-            labels: {
-                overflow: 'justify'
-            }
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: 'Frequency',
-            data: _.map(groupedEdges, function(group) {
-                return group.length;
-            })
-        }]
     });
 }

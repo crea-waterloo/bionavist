@@ -21,6 +21,10 @@
     height: 200px;
 }
 
+.shift-left {
+    margin-left: -20px;
+}
+
 label {
     word-wrap: normal;
 }
