@@ -16,8 +16,10 @@ $(document).ready(function() {
         
         // clustering.js
         initializeClustering(nodes, edges);
-        cluster();
-        dropNodes();
+        if (updateGraph) {
+            cluster();
+            dropNodes();
+        }
     });
 
     // $('#bionavist-top-bar').on('hidden.bs.collapse', function () {
