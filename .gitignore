@@ -7,3 +7,4 @@ data/relations.csv
 data/relations_updated.csv
 
 node_modules/
+*.sublime*
