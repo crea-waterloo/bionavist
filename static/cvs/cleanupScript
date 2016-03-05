@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while read p; do
+  echo ${p%?}
+done <relation.csv >output.csv
+

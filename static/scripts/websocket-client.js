@@ -1,7 +1,8 @@
 var connection;
 
 function websocketClient() {
-    connection = new WebSocket("ws://"+window.location.hostname+":3007");
+    connection = new WebSocket("ws://ws."+window.location.hostname);
+    //connection = new WebSocket("ws://ws.bionavist.com");
 
     connection.onopen = function () {
         connection.send("fetch");
