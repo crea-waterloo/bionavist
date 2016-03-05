@@ -9,3 +9,4 @@ data/relations_updated.csv
 node_modules/
 *.sublime*
 *.DS_STORE
+*.idea/

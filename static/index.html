@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-body {
-  overflow:hidden;
-   margin:0;
-}
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/bionavist2.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
+</head>
 
-text {
-  font-family: sans-serif;
-  pointer-events: none;
-}
-
-</style>
 <body>
+<div id="sidebar">
+  <h2>Nodes</h2>
+  <div id="sidebar-links">
+
+  </div>
+</div>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 var w = window.innerWidth;
@@ -60,7 +59,38 @@ var zoom = d3.behavior.zoom().scaleExtent([min_zoom,max_zoom])
 var g = svg.append("g");
 svg.style("cursor","move");
 
+function clickSidebarLink(nodes, element) {
+  var elementName = element.innerHTML;
+  for (var i = 0; i < nodes.length; i++) {
+    if (nodes[i].id === elementName) {
+      return nodes[i];
+    }
+  }
+}
+
 d3.json("graph.json", function(error, graph) {
+
+    var nodeNames = _.sortBy(graph.nodes, ['id']).map(function(node) {
+      return "<li class='node-name'>" + node.id + "</li>";
+    });
+    var nodeList = "<ul>" + nodeNames.join("") + "</ul>";
+    document.getElementById('sidebar-links').innerHTML = nodeList;
+    var listNodeLinks = document.getElementById('sidebar-links').getElementsByTagName('li');
+    for (var i = 0; i < listNodeLinks.length; i++) {
+      var nodeLink = listNodeLinks[i];
+      nodeLink.addEventListener('click', function() {
+        var nodes = graph.nodes;
+        var elementName = this.innerHTML.replace(/[ \(\)]/g, '');
+        for (var i = 0; i < nodes.length; i++) {
+          if (nodes[i].id == elementName) {
+            var targetNode = g.select('#' + nodes[i].id);
+            // TODO Check if node is selected and perform action
+             set_highlight(targetNode);
+            return;
+          }
+        }
+      });
+    }
 
 var linkedByIndex = {};
     graph.links.forEach(function(d) {
@@ -98,7 +128,9 @@ var linkedByIndex = {};
     .data(graph.nodes)
     .enter().append("g")
     .attr("class", "node")
-    
+    .attr("id", function(d) {
+      return d.id.replace(/[ \(\)]/g, '');
+    })
     .call(force.drag)
 
     
