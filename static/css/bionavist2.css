@@ -1,0 +1,35 @@
+body {
+    overflow: hidden;
+    margin: 0;
+}
+
+text {
+    font-family: sans-serif;
+    pointer-events: none;
+}
+
+#sidebar {
+    position: fixed;
+    width: 270px;
+    padding: 10px 10px;
+    height: 100%;
+    z-index: 9999;
+    background-color: #a7a7a7;
+    top: 0;
+    right: 0;
+}
+
+#sidebar-links {
+    overflow-y: scroll;
+    height: 85%;
+}
+
+#sidebar-links ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sidebar-links ul li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
