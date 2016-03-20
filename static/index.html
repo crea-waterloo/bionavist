@@ -84,9 +84,13 @@ function clickSidebarLink(nodes, element) {
 }
 
 d3.json("graph.json", function(error, graph) {
+    graph.nodes.forEach(function(node) {
+      node.name = node.id;
+      node.id = node.id.replace(/[ \(\)]/g, '');
+    });
 
-    var nodeNames = _.sortBy(graph.nodes, ['id']).map(function(node) {
-      return "<li class='node-name'>" + node.id + "</li>";
+    var nodeNames = _.sortBy(graph.nodes, ['name']).map(function(node) {
+      return "<li class='node-name'>" + node.name + "</li>";
     });
     var nodeList = "<ul>" + nodeNames.join("") + "</ul>";
     document.getElementById('sidebar-links').innerHTML = nodeList;
@@ -146,7 +150,7 @@ var linkedByIndex = {};
     .attr("id", function(d) {
       return d.id.replace(/[ \(\)]/g, '');
     })
-    .call(force.drag)
+    .call(force.drag);
 
     
     node.on("dblclick.zoom", function(d) { d3.event.stopPropagation();
@@ -192,11 +196,11 @@ var linkedByIndex = {};
     .style("font-size", nominal_text_size + "px")
 
     if (text_center)
-     text.text(function(d) { return d.id; })
+     text.text(function(d) { return d.name; })
     .style("text-anchor", "middle");
     else 
     text.attr("dx", function(d) {return (size(d.size)||nominal_base_node_size);})
-    .text(function(d) { return '\u2002'+d.id; });
+    .text(function(d) { return '\u2002'+d.name; });
 
     node.on("mouseover", function(d) {
     set_highlight(d);
