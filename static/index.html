@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="css/bionavist2.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.2.min.js"   integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 
 <body>
 <div id="sidebar">
   <h2>Nodes</h2>
+
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      Sort by
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <li id="sortByName"><a href="#">Name</a></li>
+      <li id="sortByEdgeCount"><a href="#">Edge Count</a></li>
+    </ul>
+  </div>
+
   <div id="sidebar-links">
 
   </div>
@@ -72,44 +86,66 @@ var max_zoom = 7;
 var svg = d3.select("body").append("svg");
 var zoom = d3.behavior.zoom().scaleExtent([min_zoom,max_zoom])
 var g = svg.append("g");
+var validIdReplaceRegex = /[ \(\)\/+~!@#&$%^*=,]/g;
 svg.style("cursor","move");
 
-function clickSidebarLink(nodes, element) {
-  var elementName = element.innerHTML;
-  for (var i = 0; i < nodes.length; i++) {
-    if (nodes[i].id === elementName) {
-      return nodes[i];
-    }
-  }
-}
-
 d3.json("graph.json", function(error, graph) {
+
+    graph.links.forEach(function(link) {
+      if (!graph.nodes[link.source].edgeCount) {
+        graph.nodes[link.source].edgeCount = 0;
+      }
+      graph.nodes[link.source].edgeCount++;
+
+      if (!graph.nodes[link.target].edgeCount) {
+        graph.nodes[link.target].edgeCount = 0;
+      }
+      graph.nodes[link.target].edgeCount++;
+    });
+
     graph.nodes.forEach(function(node) {
       node.name = node.id;
-      node.id = node.id.replace(/[ \(\)]/g, '');
+      node.id = node.id.replace(validIdReplaceRegex, '');
     });
 
-    var nodeNames = _.sortBy(graph.nodes, ['name']).map(function(node) {
-      return "<li class='node-name'>" + node.name + "</li>";
-    });
-    var nodeList = "<ul>" + nodeNames.join("") + "</ul>";
-    document.getElementById('sidebar-links').innerHTML = nodeList;
-    var listNodeLinks = document.getElementById('sidebar-links').getElementsByTagName('li');
-    for (var i = 0; i < listNodeLinks.length; i++) {
-      var nodeLink = listNodeLinks[i];
-      nodeLink.addEventListener('click', function() {
-        var nodes = graph.nodes;
-        var elementName = this.innerHTML.replace(/[ \(\)]/g, '');
-        for (var i = 0; i < nodes.length; i++) {
-          if (nodes[i].id == elementName) {
-            var targetNode = jQuery('#' + nodes[i].id);
-            targetNode.d3DblClick();
-            targetNode.d3Mouseover();
-            return;
-          }
-        }
+    function generateNodeList(sortBy, reverse) {
+      var nodeNames = _.sortBy(graph.nodes, [sortBy]).map(function(node) {
+        return "<li class='node-name' data-name='" + node.name +"'>" + node.name + ' (' + node.edgeCount + ')' + "</li>";
       });
+
+      if (reverse) {
+        nodeNames = _.reverse(nodeNames);
+      }
+
+      var nodeList = "<ul>" + nodeNames.join("") + "</ul>";
+      document.getElementById('sidebar-links').innerHTML = nodeList;
+      var listNodeLinks = document.getElementById('sidebar-links').getElementsByTagName('li');
+      for (var i = 0; i < listNodeLinks.length; i++) {
+        var nodeLink = listNodeLinks[i];
+        nodeLink.addEventListener('click', function() {
+          var nodes = graph.nodes;
+          var elementName = this.dataset.name.replace(validIdReplaceRegex, '');
+          for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].id == elementName) {
+              var targetNode = jQuery('#' + nodes[i].id);
+              targetNode.d3DblClick();
+              targetNode.d3Mouseover();
+              return;
+            }
+          }
+        });
+      }
     }
+
+    document.getElementById('sortByName').addEventListener('click', function() {
+      generateNodeList('name', false);
+    });
+
+    document.getElementById('sortByEdgeCount').addEventListener('click', function() {
+      generateNodeList('edgeCount', true);
+    });
+
+    generateNodeList('name', false);
 
 var linkedByIndex = {};
     graph.links.forEach(function(d) {
@@ -148,7 +184,7 @@ var linkedByIndex = {};
     .enter().append("g")
     .attr("class", "node")
     .attr("id", function(d) {
-      return d.id.replace(/[ \(\)]/g, '');
+      return d.id.replace(validIdReplaceRegex, '');
     })
     .call(force.drag);
 
