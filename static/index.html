@@ -239,7 +239,13 @@ var linkedByIndex = {};
     .text(function(d) { return '\u2002'+d.name; });
 
     node.on("mouseover", function(d) {
-    set_highlight(d);
+      set_highlight(d);
+      d3.select(this).select('path')
+          .transition()
+          .duration(300)
+          .attr("d", d3.svg.symbol()
+              .size(function(d) { return Math.PI*Math.pow(size(d.size)||nominal_base_node_size,2.7); })
+              .type(function(d) { return d.type; }));
     })
   .on("mousedown", function(d) { d3.event.stopPropagation();
     focus_node = d;
@@ -248,7 +254,12 @@ var linkedByIndex = {};
     
 }   ).on("mouseout", function(d) {
         exit_highlight();
-
+        d3.select(this).select('path')
+            .transition()
+            .duration(300)
+            .attr("d", d3.svg.symbol()
+                .size(function(d) { return Math.PI*Math.pow(size(d.size)||nominal_base_node_size,2); })
+                .type(function(d) { return d.type; }));
 }   );
 
         d3.select(window).on("mouseup",  
